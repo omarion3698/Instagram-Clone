@@ -32,7 +32,7 @@ h1{
   font-size:12px;
 }
 .navbar{
-  background-color:white;
+  background-color:rgb(0, 0, 0);
 }
 .instaicon{
   display: inline-block;
@@ -41,7 +41,7 @@ h1{
 }
 .instaglyph{
   display: inline-block;
-  background-image: url(/static/images/profile.jpeg);
+  background-image: url(/static/images/navbar.png);
   margin:8px;
 }
 .modal-body a{
@@ -93,7 +93,6 @@ h1{
 body{
   background-color:#f9f9f9;
 }
-
 .account-img {
   height: 165px;
   width: 165px;
@@ -145,5 +144,4 @@ body{
 }
 .card:hover #overlay{
   display: block;
-
 }

@@ -39,7 +39,7 @@
                 </div>
                 <div class="card-body mb-4">
                         <a href="{% url 'comment' image.id %}">
-                        <div class="card-text" style="background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ0x4I8jjDFNSs1uwYP_RhTDdmULrydjMtT8g&usqp=CAU); background-size: content; position: sticky">
+                        <div class="card-text" style="background-image:url({{ image.image.url }}); background-size: content; position: sticky;">
                         <img src="{{image.image.url}}" style="background-position: 0%;" class="card-img" width="100%"/>
                         </div></a>
                 </div>
