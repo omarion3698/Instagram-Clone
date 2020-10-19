@@ -6,7 +6,8 @@
       display:inline;
   }
   #insta{
-      height:60%;
+      height:30%;
+      width:100%;
   }
 
 }
@@ -35,12 +36,12 @@ h1{
 }
 .instaicon{
   display: inline-block;
-  background-image: url(/static/images/96319a506a03.png);
+  background-image: url(/static/images/default.png);
   padding:0px;
 }
 .instaglyph{
   display: inline-block;
-  background-image: url(/static/images/868a059b8fc8.png);
+  background-image: url(/static/images/profile.jpeg);
   margin:8px;
 }
 .modal-body a{
