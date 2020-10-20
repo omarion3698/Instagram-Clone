@@ -36,12 +36,12 @@ h1{
 }
 .instaicon{
   display: inline-block;
-  /* background-image: url(https://image.flaticon.com/icons/png/128/1/1394.png); */
   padding:0px;
+  font-size: x-large;
+  margin-top: 10px;
 }
 .instaglyph{
   display: inline-block;
-  /* background-image: url(/static/images/96319a506a03.png); */
   margin:8px;
 }
 .modal-body a{
