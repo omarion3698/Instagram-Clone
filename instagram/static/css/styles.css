@@ -36,12 +36,12 @@ h1{
 }
 .instaicon{
   display: inline-block;
-  background-image: url(/home/omarion/Desktop/Instagram-Clone/instagram/static/images/868a059b8fc8.png);
+  background-image: url(/static/images/868a059b8fc8.png);
   padding:0px;
 }
 .instaglyph{
   display: inline-block;
-  background-image: url(/home/omarion/Desktop/Instagram-Clone/instagram/static/images/96319a506a03.png);
+  background-image: url(/static/images/96319a506a03.png);
   margin:8px;
 }
 .modal-body a{
