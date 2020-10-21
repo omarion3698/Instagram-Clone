@@ -24,7 +24,7 @@ def signup(request):
             return redirect('index')
     else:
         form = SignUpForm()
-    return render(request, 'register/signup.html', {'form': form})
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 @login_required(login_url='login')
@@ -44,7 +44,6 @@ def index(request):
         'images': images,
         'form': form,
         'users': users,
-
     }
     return render(request, 'instagram/index.html', params)
 
@@ -66,9 +65,28 @@ def profile(request, username):
         'user_form': user_form,
         'prof_form': prof_form,
         'images': images,
-
     }
     return render(request, 'instagram/profile.html', params)
+
+
+def like_post(request):
+    image = get_object_or_404(Post, id=request.POST.get('id'))
+    is_liked = False
+    if image.likes.filter(id=request.user.id).exists():
+        image.likes.remove(request.user)
+        is_liked = False
+    else:
+        image.likes.add(request.user)
+        is_liked = False
+
+    params = {
+        'image': image,
+        'is_liked': is_liked,
+        'total_likes': image.total_likes()
+    }
+    if request.is_ajax():
+        html = render_to_string('instagram/like.html', params, request=request)
+        return JsonResponse({'form': html})
 
 
 @login_required(login_url='login')
@@ -117,7 +135,7 @@ def post_comment(request, id):
         'is_liked': is_liked,
         'total_likes': image.total_likes()
     }
-    return render(request, 'instagram/single_post.html', params)
+    return render(request, 'instagram/post.html', params)
 
 
 class PostLikeToggle(RedirectView):
@@ -160,26 +178,6 @@ class PostLikeAPIToggle(APIView):
         return Response(data)
 
 
-def like_post(request):
-    image = get_object_or_404(Post, id=request.POST.get('id'))
-    is_liked = False
-    if image.likes.filter(id=request.user.id).exists():
-        image.likes.remove(request.user)
-        is_liked = False
-    else:
-        image.likes.add(request.user)
-        is_liked = False
-
-    params = {
-        'image': image,
-        'is_liked': is_liked,
-        'total_likes': image.total_likes()
-    }
-    if request.is_ajax():
-        html = render_to_string('instagram/like_section.html', params, request=request)
-        return JsonResponse({'form': html})
-
-
 @login_required(login_url='login')
 def search_profile(request):
     if 'search_user' in request.GET and request.GET['search_user']:
@@ -191,18 +189,10 @@ def search_profile(request):
             'results': results,
             'message': message
         }
-        return render(request, 'instagram/results.html', params)
+        return render(request, 'instagram/output.html', params)
     else:
         message = "You haven't searched for any image category"
-    return render(request, 'instagram/results.html', {'message': message})
-
-
-def unfollow(request, to_unfollow):
-    if request.method == 'GET':
-        user_profile2 = Profile.objects.get(pk=to_unfollow)
-        unfollow_d = Follow.objects.filter(follower=request.user.profile, followed=user_profile2)
-        unfollow_d.delete()
-        return redirect('user_profile', user_profile2.user.username)
+    return render(request, 'instagram/output.html', {'message': message})
 
 
 def follow(request, to_follow):
@@ -211,3 +201,10 @@ def follow(request, to_follow):
         follow_s = Follow(follower=request.user.profile, followed=user_profile3)
         follow_s.save()
         return redirect('user_profile', user_profile3.user.username)
+
+def unfollow(request, to_unfollow):
+    if request.method == 'GET':
+        user_profile2 = Profile.objects.get(pk=to_unfollow)
+        unfollow_d = Follow.objects.filter(follower=request.user.profile, followed=user_profile2)
+        unfollow_d.delete()
+        return redirect('user_profile', user_profile2.user.username)
