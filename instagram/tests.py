@@ -2,7 +2,6 @@ from django.test import TestCase
 from .models import Profile, Post
 from django.contrib.auth.models import User
 
-
 class TestProfile(TestCase):
     def setUp(self):
         self.user = User(username='Omar')
