@@ -24,7 +24,7 @@ def signup(request):
             return redirect('index')
     else:
         form = SignUpForm()
-    return render(request, 'registration/signup.html', {'form': form})
+    return render(request, 'register/signup.html', {'form': form})
 
 
 @login_required(login_url='login')
@@ -139,7 +139,6 @@ class PostLikeAPIToggle(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, id=None, format=None):
-        # id = self.kwargs.get('id')
         obj = get_object_or_404(Post, pk=id)
         url_ = obj.get_absolute_url()
         user = self.request.user
@@ -162,7 +161,6 @@ class PostLikeAPIToggle(APIView):
 
 
 def like_post(request):
-    # image = get_object_or_404(Post, id=request.POST.get('image_id'))
     image = get_object_or_404(Post, id=request.POST.get('id'))
     is_liked = False
     if image.likes.filter(id=request.user.id).exists():
